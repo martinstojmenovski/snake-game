@@ -1,7 +1,9 @@
 //game loop
 // import { SNAKE_SPEED } from "./snake";
+
 let lastRenderedTime = 0;
-const SNAKE_SPEED = 1
+const gameBoard = document.getElementById('game-board')
+
 
 
 function main(currentTime){
@@ -10,24 +12,19 @@ function main(currentTime){
     if(secondsSinceLastRender < 1 / SNAKE_SPEED) return
 
     lastRenderedTime = currentTime
-     console.log(secondsSinceLastRender)
+    
 
 
      update()
-     draw()
+    draw(gameBoard)
    
 }
 
 window.requestAnimationFrame(main)
 
 
-function update(){
 
-}
 
-function draw(){
-
-}
 
 
 
