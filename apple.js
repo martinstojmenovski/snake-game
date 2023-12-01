@@ -1,10 +1,9 @@
-let apple = { x: 0, y: 0}
+let apple = { x: 10, y: 0}
 function updateApple() {
 
 }
 
 function drawApple(gameBoard) {
-    gameBoard.innerHTML = ''
 
     const appleElement = document.createElement('div')
     appleElement.style.gridRowStart = apple.y

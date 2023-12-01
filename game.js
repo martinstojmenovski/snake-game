@@ -19,12 +19,13 @@ function main(currentTime) {
     draw()
 
 }
-
+// console.log(draw())
 
 function update() {
     updateSnake()
     updateApple()
 }
+
 function draw() {
     gameBoard.innerHTML = ''
     drawSnake(gameBoard)
