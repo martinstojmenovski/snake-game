@@ -11,7 +11,7 @@ function main(currentTime){
         updateHighScore();
        if(confirm(currentScore >= 2 ? `You scored ${currentScore} points! Press OK to restart.`
        : `You scored ${currentScore} point! Press OK to restart.`)){
-        window.location = '/'
+        window.location.reload();
        }
        return;
     };
