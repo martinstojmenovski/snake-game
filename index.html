@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Snake</title>
+  <title>Snake Game</title>
   <style>
     body {
       height: 100vh;
@@ -13,35 +14,50 @@
       justify-content: center;
       align-items: center;
       margin: 0;
-      background-color: black;
+      background-color: #414141;
     }
 
     #game-board {
-      background-color: #CCC;
-      width: 100vmin;
-      height: 100vmin;
+      background-color: #abb78a;
+      width: 80vmin;
+      height: 80vmin;
       display: grid;
       grid-template-rows: repeat(21, 1fr);
       grid-template-columns: repeat(21, 1fr);
     }
 
     .snake {
-      background-color: hsl(200, 100%, 50%);
-      border: .25vmin solid black;
+      background-color: #414141;
+      border: .05vmin solid black;
     }
 
     .apple {
-      background-color: hsl(50, 100%, 50%);
-      border: .25vmin solid black;
+      background-color: #dedede;
+      border: #999 .50vmin solid;
+    }
+    #scores{
+      display: flex;
+      justify-content: space-between;
+      color:#abb78a;
     }
   </style>
-  <script src="snake.js" defer ></script>
-  <script src="game.js" defer ></script>
-  <script src="input.js" defer ></script>
-  <script src="apple.js" defer ></script>
+  <script src="snake.js" defer type="module"></script>
+  <script src="game.js" defer type="module"></script>
+  <script src="input.js" defer type="module"></script>
+  <script src="apple.js" defer type="module"></script>
+  <script src="grid.js" defer type="module"></script>
 </head>
+
 <body>
-  <div id="game-board"></div>
-  <div id="snake22"></div>
+  <main>
+    <div id="scores">
+      <h1 id="score">000</h1>
+      <h1 id="highScore">000</h1>
+    </div>
+    <div id="game-board"></div>
+    <div id="snake"></div>
+  </main>
+  
 </body>
+
 </html>

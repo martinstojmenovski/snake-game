@@ -1,48 +1,54 @@
-//game loop
-// import { SNAKE_SPEED } from "./snake";
+import { update as updateSnake, draw as drawSnake, SNAKE_SPEED,
+ getSnakeHead, snakeIntersection, updateScore, updateHighScore, increaseSpeed, currentScore } from "./snake.js";
+import { update as updateApple, draw as drawApple } from './apple.js';
+import { outsideGrid } from "./grid.js";
 
-let lastRenderedTime = 0;
-const gameBoard = document.getElementById('game-board')
+let lastRenderTime = 0;
+export let gameOver = false;
+const gameBoard = document.getElementById('game-board');
+function main(currentTime){
+    if(gameOver){  
+        updateHighScore();
+       if(confirm(currentScore >= 2 ? `You scored ${currentScore} points! Press OK to restart.`
+       : `You scored ${currentScore} point! Press OK to restart.`)){
+        window.location = '/'
+       }
+       return;
+    };
 
+    window.requestAnimationFrame(main);
 
+    const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
+    if( secondsSinceLastRender < 1 / SNAKE_SPEED ) return;
 
-function main(currentTime) {
-    window.requestAnimationFrame(main)
-    const secondsSinceLastRender = (currentTime - lastRenderedTime) / 1000
-    if (secondsSinceLastRender < 1 / SNAKE_SPEED) return
+    lastRenderTime = currentTime;
 
-    lastRenderedTime = currentTime
+    update();
+    draw();
+};
 
+window.requestAnimationFrame(main);
 
+function update(){
+    updateSnake();
+    updateApple();
+    checkDeath();
+    updateScore();
+    increaseSpeed();
 
-    update()
-    draw()
+    
+};
+    
 
-}
-// console.log(draw())
+function draw(){
+    gameBoard.innerHTML = '';
+    drawSnake(gameBoard);
+    drawApple(gameBoard);
+   
+    
+};
 
-function update() {
-    updateSnake()
-    updateApple()
-}
-
-function draw() {
-    gameBoard.innerHTML = ''
-    drawSnake(gameBoard)
-    drawApple(gameBoard)
-}
-
-window.requestAnimationFrame(main)
-
-
-
-
-
-
-
-
-
-
-
-
+function checkDeath() {
+    gameOver = outsideGrid(getSnakeHead()) || snakeIntersection();
+};
 
