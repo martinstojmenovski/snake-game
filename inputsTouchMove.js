@@ -22,58 +22,83 @@ window.addEventListener('keydown', e => {
     }
 });
 
-window.addEventListener('touchstart', handleTouchStart, false);
-window.addEventListener('touchmove', handleTouchMove, false);
+const board = document.getElementById('game-board');
 
-let xDown = null;
-let yDown = null;
+board.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    touchstartX = e.changedTouches[0].screenX;
+    touchstartY = e.changedTouches[0].screenY;
+})
 
-function handleTouchStart(evt) {
-    const firstTouch = evt.touches[0];
-    xDown = firstTouch.clientX;
-    yDown = firstTouch.clientY;
-}
+board.addEventListener('touchend', (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
+    checkDirection()
+})
 
-function handleTouchMove(evt) {
-    if (!xDown || !yDown) {
-        return;
-    }
+// Create KeyboardEvent objects for each arrow key
+const arrowUpEvent = new KeyboardEvent('keydown', {
+    key: 'ArrowUp',
+    bubbles: true,
+    cancelable: true,
+    keyCode: 38 // Optional, keyCode for compatibility
+  });
+  
+  const arrowDownEvent = new KeyboardEvent('keydown', {
+    key: 'ArrowDown',
+    bubbles: true,
+    cancelable: true,
+    keyCode: 40 // Optional, keyCode for compatibility
+  });
+  
+  const arrowLeftEvent = new KeyboardEvent('keydown', {
+    key: 'ArrowLeft',
+    bubbles: true,
+    cancelable: true,
+    keyCode: 37 // Optional, keyCode for compatibility
+  });
+  
+  const arrowRightEvent = new KeyboardEvent('keydown', {
+    key: 'ArrowRight',
+    bubbles: true,
+    cancelable: true,
+    keyCode: 39 // Optional, keyCode for compatibility
+  });
 
-    const xUp = evt.touches[0].clientX;
-    const yUp = evt.touches[0].clientY;
+// start of swipe effect
+let touchstartX = 0;
+let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
 
-    const xDiff = xDown - xUp;
-    const yDiff = yDown - yUp;
-
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {
-        // Horizontal swipe
-        if (xDiff > 0) {
-            // Left swipe
-            if (lastInputDirection.x !== 0) return;
-            inputDirection = { x: -1, y: 0 };
+function checkDirection() {
+    const deltaX = touchendX - touchstartX;
+    const deltaY = touchendY - touchstartY;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0) {
+            console.log('swiped to the right');
+            window.dispatchEvent(arrowRightEvent)
         } else {
-            // Right swipe
-            if (lastInputDirection.x !== 0) return;
-            inputDirection = { x: 1, y: 0 };
+            console.log('swiped to the left');
+            window.dispatchEvent(arrowLeftEvent)
         }
     } else {
-        // Vertical swipe
-        if (yDiff > 0) {
-            // Up swipe
-            if (lastInputDirection.y !== 0) return;
-            inputDirection = { x: 0, y: -1 };
+        if (deltaY > 0) {
+            console.log('swiped to the bottom');
+            window.dispatchEvent(arrowDownEvent)
         } else {
-            // Down swipe
-            if (lastInputDirection.y !== 0) return;
-            inputDirection = { x: 0, y: 1 };
+            console.log('swiped to the top');
+            window.dispatchEvent(arrowUpEvent); 
         }
     }
-    /* reset values */
-    xDown = null;
-    yDown = null;
 }
+
+
 
 export function getInputDirection() {
     lastInputDirection = inputDirection;
     return inputDirection;
 }
+
+
