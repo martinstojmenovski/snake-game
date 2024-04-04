@@ -1,4 +1,4 @@
-import { getInputDirection } from "./input.js";
+import { getInputDirection } from "./inputsTouchMove.js";
 
 const score = document.getElementById('score');
 const highScoreText = document.getElementById('highScore');

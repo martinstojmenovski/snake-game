@@ -77,18 +77,14 @@ function checkDirection() {
     
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
         if (deltaX > 0) {
-            console.log('swiped to the right');
             window.dispatchEvent(arrowRightEvent)
         } else {
-            console.log('swiped to the left');
             window.dispatchEvent(arrowLeftEvent)
         }
     } else {
         if (deltaY > 0) {
-            console.log('swiped to the bottom');
             window.dispatchEvent(arrowDownEvent)
         } else {
-            console.log('swiped to the top');
             window.dispatchEvent(arrowUpEvent); 
         }
     }
